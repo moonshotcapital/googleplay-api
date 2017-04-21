@@ -11,9 +11,9 @@ from googleplay import GooglePlayAPI
 from helpers import sizeof_fmt
 
 if (len(sys.argv) < 2):
-    print "Usage: %s packagename [filename]"
-    print "Download an app."
-    print "If filename is not present, will write to packagename.apk."
+    print("Usage: %s packagename [filename]")
+    print("Download an app.")
+    print("If filename is not present, will write to packagename.apk.")
     sys.exit(0)
 
 packagename = sys.argv[1]
@@ -34,8 +34,8 @@ vc = doc.details.appDetails.versionCode
 ot = doc.offer[0].offerType
 
 # Download
-print "Downloading %s..." % sizeof_fmt(doc.details.appDetails.installationSize),
+print("Downloading %s..." % sizeof_fmt(doc.details.appDetails.installationSize))
 data = api.download(packagename, vc, ot)
 open(filename, "wb").write(data)
-print "Done"
+print("Done")
 

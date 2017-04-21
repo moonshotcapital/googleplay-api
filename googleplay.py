@@ -3,7 +3,7 @@
 import base64
 import gzip
 import pprint
-import StringIO
+from io import StringIO
 import requests
 
 from google.protobuf import descriptor
@@ -95,7 +95,7 @@ class GooglePlayAPI(object):
 
         # put your auth token in config.py to avoid multiple login requests
         if self.debug:
-            print "authSubToken: " + authSubToken
+            print("authSubToken: " + authSubToken)
 
     def login(self, email=None, password=None, authSubToken=None):
         """Login to your Google Account. You must provide either:
@@ -140,7 +140,7 @@ class GooglePlayAPI(object):
         if (datapost is None and path in self.preFetch):
             data = self.preFetch[path]
         else:
-            headers = { "Accept-Language": self.lang,
+            headers = {"Accept-Language": self.lang,
                                     "Authorization": "GoogleLogin auth=%s" % self.authSubToken,
                                     "X-DFE-Enabled-Experiments": "cl:billing.select_add_instrument_by_default",
                                     "X-DFE-Unsupported-Experiments": "nocache:billing.use_charging_poller,market_emails,buyer_currency,prod_baseline,checkin.set_asset_paid_app_field,shekel_test,content_ratings,buyer_currency_in_app,nocache:encrypted_apk,recent_changes",
@@ -158,7 +158,8 @@ class GooglePlayAPI(object):
 
             url = "https://android.clients.google.com/fdfe/%s" % path
             if datapost is not None:
-                response = requests.post(url, data=datapost, headers=headers, verify=False)
+                response = requests.post(url, data=datapost, headers=headers,
+                                         verify=False)
             else:
                 response = requests.get(url, headers=headers, verify=False)
             data = response.content

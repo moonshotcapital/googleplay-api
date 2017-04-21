@@ -108,11 +108,10 @@ def analyse_bb(bb, k, cn):
 ##############################################################
 
 if (len(sys.argv) != 2):
-    print "Usage: %s <apk>" % sys.argv[0]
-    print "Tries to recover the .proto file used by the given APK."
-    print "Works only with Micro-Protobuf apps, and has only been tested with Google Play."
-    print "For more information: http://www.segmentationfault.fr/publications/reversing-google-play-and-micro-protobuf-applications/"
-    print
+    print("Usage: %s <apk>" % sys.argv[0])
+    print("Tries to recover the .proto file used by the given APK.")
+    print("Works only with Micro-Protobuf apps, and has only been tested with Google Play.")
+    print("For more information: http://www.segmentationfault.fr/publications/reversing-google-play-and-micro-protobuf-applications/")
     sys.exit(0)
 
 apk = APK(sys.argv[1])
@@ -121,14 +120,14 @@ vma = uVMAnalysis(dvm)
 
 proto_classes = filter(lambda c: "MessageMicro;" in c.get_superclassname(), dvm.get_classes())
 if (len(proto_classes) == 0):
-    print "Unable to find protobuf micro classes."
+    print("Unable to find protobuf micro classes.")
     sys.exit(0)
 
 proto_class_names = map(lambda c: c.get_name(), proto_classes)
 
 """
 cn = proto_class_names[1]
-print cn
+print(cn)
 pprint([(i.split('/')[-1], sorted([(k >> 3) for k in index_basic_blocks(dvm, vma, i).keys()])) for i in proto_class_names])
 """
 
@@ -181,9 +180,9 @@ def print_message(name, sd, parent, indent, title="message", extras=[]):
     # messages_printed[full_name] = True
 
     if (title == "message"):
-        print indent*"    " + "message %s {" % (name)
+        print(indent*"    " + "message %s {" % (name))
     else:
-        print indent*"    " + "%s group %s = %d {" % (extras[0], name, extras[1])
+        print(indent*"    " + "%s group %s = %d {" % (extras[0], name, extras[1]))
 
     i = indent+1
     infos = messages_info[full_name]
@@ -200,7 +199,7 @@ def print_message(name, sd, parent, indent, title="message", extras=[]):
         else:
             print '    '*i + ' '.join([rule, typ.split('$')[-1], ulfirst(field)]) + ' = %d;' % k
 
-    print indent*"    " + "}"
+    print(indent*"    " + "}")
 
 print_proto(messages_dep)
 
