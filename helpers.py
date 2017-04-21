@@ -23,4 +23,4 @@ def print_result_line(c):
          sizeof_fmt(c.details.appDetails.installationSize),
          "%.2f" % c.aggregateRating.starRating,
          c.details.appDetails.numDownloads]
-    print(SEPARATOR.join(unicode(i).encode('utf8') for i in l))
+    print(SEPARATOR.join(str(i) for i in l))

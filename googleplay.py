@@ -10,8 +10,8 @@ from google.protobuf import descriptor
 from google.protobuf.internal.containers import RepeatedCompositeFieldContainer
 from google.protobuf import text_format
 from google.protobuf.message import Message, DecodeError
-
-import googleplay_pb2
+from googleplayapi import googleplay_pb2
+# import googleplay_pb2
 import config
 
 class LoginError(Exception):
@@ -169,6 +169,7 @@ class GooglePlayAPI(object):
         gzipper = gzip.GzipFile(fileobj=data)
         data = gzipper.read()
         '''
+        import ipdb; ipdb.set_trace()
         message = googleplay_pb2.ResponseWrapper.FromString(data)
         self._try_register_preFetch(message)
 
